@@ -2,16 +2,15 @@
     <layout-default>
         <template #contents>
             <!--Modal notification success and warning-->
-            <modal-success-component msg="Đã cập nhật thông tin sản phẩm!" @ok="goDetailShipment"></modal-success-component>
+            <modal-success-component msg="Đã thêm mới sản phẩm!" @ok="goListProduct"></modal-success-component>
 
-            <h5 class="header-text ms-3">CẬP NHẬT SẢN PHẨM:</h5>
+            <h5 class="header-text ms-3">THÊM SẢN PHẨM MỚI:</h5>
             <div class="d-flex justify-content-center mb-4">
                 <div class="main-profile w-75 overflow-hidden">
                     <form @submit.prevent="submit" enctype="multipart/form-data">
                         <div class="row">
                             <div class="col-md-4 ms-4 col-12">
                                 <h6 class="fw-bold text-secondary mt-4">HÌNH ẢNH:</h6>
-                                <img :src="`${product.image}`" alt="" class="w-100">
                                 <div class="d-flex form-floating my-2">
                                     <input class=" w-75 form-control" id="avatar" type="file" @change="previewFiles"
                                         ref="image">
@@ -22,32 +21,27 @@
                                 <h6 class="fw-bold text-secondary">THÔNG TIN SẢN PHẨM:</h6>
 
                                 <div class="form-floating mb-2">
-                                    <input type="text" class="form-control" id="name" :value=product.name
-                                        @input="product.name = $event.target.value">
+                                    <input type="text" class="form-control" id="name" v-model="data['name']">
                                     <label for="name">Tên sản phẩm:</label>
                                 </div>
 
                                 <div class="form-floating mb-2">
-                                    <input type="number" class="form-control" id="hsd" :value=product.hsd
-                                        @input="product.hsd = $event.target.value">
+                                    <input type="number" class="form-control" id="hsd" v-model="data['hsd']">
                                     <label for="hsd">Hạn sử dụng (tháng):</label>
                                 </div>
 
                                 <div class="form-floating mb-2">
-                                    <input type="text" class="form-control" id="preserve" :value=product.preserve
-                                        @input="product.preserve = $event.target.value">
+                                    <input type="text" class="form-control" id="preserve" v-model="data['preserve']">
                                     <label for="preserve">Bảo quản:</label>
                                 </div>
 
                                 <div class="form-floating mb-2">
-                                    <input type="text" class="form-control" id="pack" :value=product.pack
-                                        @input="product.pack = $event.target.value">
+                                    <input type="text" class="form-control" id="pack" v-model="data['pack']">
                                     <label for="pack">Đóng gói:</label>
                                 </div>
 
                                 <div class="form-floating mb-2">
-                                    <input type="text" class="form-control" id="status" :value=product.status
-                                        @input="product.status = $event.target.value">
+                                    <input type="text" class="form-control" id="status" v-model="data['status']">
                                     <label for="status">Quy cách:</label>
                                 </div>
 
@@ -57,10 +51,7 @@
                                 </span>
 
                                 <div class="mb-3 d-flex align-items-end justify-content-end">
-                                    <router-link :to="{ name: 'Chi-tiet-SP', params: { id: product.id } }">
-                                        <button class="btn"><i class="fa-solid fa-arrow-left px-1"></i></button>
-                                    </router-link>
-                                    <button class="btn ms-2" type="submit">Cập nhật sản phẩm</button>
+                                    <button class="btn ms-2" type="submit">Thêm sản phẩm</button>
                                 </div>
                             </div>
                         </div>
@@ -83,7 +74,7 @@ import productService from '@/service/product.service';
 export default {
     data() {
         return {
-            product: {},
+            data: [],
             image: "",
         }
     },
@@ -101,38 +92,27 @@ export default {
         }
     },
 
-    async created() {
-        await productService.getProduct(this.$route.params.id).then((result) => {
-            this.product = result;
-        });
-    },
-
-    methods:
-    {
+    methods: {
         previewFiles() {
             this.image = this.$refs.image.files[0];
         },
 
         async submit() {
-            if (!this.product.id || !this.product.name || !this.product.hsd || !this.product.preserve
-                || !this.product.pack || !this.product.status) {
+            if (!this.data['name'] || !this.data['hsd'] || !this.data['preserve'] || !this.data['pack'] || !this.data['status']) {
                 this.error['enoughInfor'] = true;
             } else {
                 this.error['enoughInfor'] = false;
-                if (!this.image) {
-                    this.image = this.product.image;
-                }
                 try {
                     const formData = new FormData();
                     formData.append('image', this.image);
-                    formData.append('id', this.product.id);
-                    formData.append('name', this.product.name);
-                    formData.append('hsd', this.product.hsd);
-                    formData.append('preserve', this.product.preserve);
-                    formData.append('pack', this.product.pack);
-                    formData.append('status', this.product.status);
+                    formData.append('id', this.data['id']);
+                    formData.append('name', this.data['name']);
+                    formData.append('hsd', this.data['hsd']);
+                    formData.append('preserve', this.data['preserve']);
+                    formData.append('pack', this.data['pack']);
+                    formData.append('status', this.data['status']);
 
-                    await productService.updateProduct(formData).then((result) => {
+                    await productService.newProduct(formData).then((result) => {
                         if (result) {
                             console.log(result)
                             var myModal = new bootstrap.Modal(document.getElementById("myModal"), {});
@@ -145,8 +125,8 @@ export default {
             }
         },
 
-        goDetailShipment() {
-            this.$router.push(`/chitietsanpham/${this.product.id}`);
+        goListProduct() {
+            this.$router.push('/danhsachsanpham');
         }
     }
 }

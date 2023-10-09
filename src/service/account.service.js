@@ -6,19 +6,15 @@ class accountService {
     }
 
     async login(username, password) {
-        return (await this.api.post('/login', { username, password })).data;
-    }
-
-    async logout(id) {
-        return (await this.api.post('/logout', { id })).data;
-    }
-
-    async session() {
-        return (await this.api.get('/get-session')).data.data;
+        return (await this.api.post('/login', { username, password }));
     }
 
     async checkIsset(username) {
         return (await this.api.post('/account/check-isset', { username })).data;
+    }
+
+    async getRole(token) {
+        return (await this.api.post('/account/check-role', { 'token': token })).data.data;
     }
 }
 

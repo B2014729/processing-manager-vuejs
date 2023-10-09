@@ -84,7 +84,10 @@ export default {
                     new bootstrap.Modal(document.getElementById("ModalWarning"), {}).show();
                 }
             } else {
-                new bootstrap.Modal(document.getElementById("ModalWarning"), {}).show();
+                this.listShipment = await ShipmentService.getListShipment();
+                this.listShipment.forEach(element => {
+                    element.date_manufacture = moment(element.date_manufacture).format('DD/MM/YYYY');
+                });
             }
         }
     }

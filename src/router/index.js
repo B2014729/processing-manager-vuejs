@@ -21,9 +21,11 @@ import updateShipment from '../pages/manufacturePages/updateShipment.vue';
 import listProduct from '../pages/manufacturePages/listProduct.vue';
 import detailProduct from '../pages/manufacturePages/detailProduct.vue';
 import updateProduct from '../pages/manufacturePages/updateProduct.vue';
+import newProduct from '../pages/manufacturePages/newProduct.vue';
 
 import listProcess from '../pages/manufacturePages/listProcess.vue';
-import detailProcess from '../pages/manufacturePages/detailProcess.vue'
+import detailProcess from '../pages/manufacturePages/detailProcess.vue';
+import addActiveProcess from '../pages/manufacturePages/addActiveProcess.vue';
 
 import NotFound from '../pages/error/notFound.vue';
 
@@ -42,20 +44,20 @@ const routes = [
 
     {
         //Thong ke
-        path: '/trangchu/:id',
+        path: '/trangchu',
         name: 'Thong-ke-SX',
         component: manufactureHome
     },
 
     {
         //Thong tin ca nhan
-        path: '/canhan/:id',
+        path: '/canhan',
         name: 'TT-ca-nhan',
         component: profile,
     },
     {
         //Cap nhat thong tin ca nhan
-        path: '/capnhat-tt/:id',
+        path: '/capnhat-tt',
         name: 'Cap-nhat-tt-ca-nhan',
         component: updateProfile
     },
@@ -63,7 +65,7 @@ const routes = [
     //QL NHAN VIEN------------------------------------
     {
         //Danh sach nhan vien
-        path: '/danhsachnhanvien/',
+        path: '/danhsachnhanvien',
         name: 'Danh-sach-nhan-vien',
         component: listStaff
     },
@@ -84,7 +86,7 @@ const routes = [
     },
     {
         //Bang luong nhan vien
-        path: '/bangluongnhanvien/',
+        path: '/bangluongnhanvien',
         name: 'Bang-luong-nhan-vien',
         component: payrollStaff
     },
@@ -98,7 +100,7 @@ const routes = [
     //QL LO HANG------------------------------------
     {
         //Danh sach lo hang
-        path: '/danhsachlohang/',
+        path: '/danhsachlohang',
         name: 'Danh-sach-LH',
         component: listShipment
     },
@@ -110,7 +112,7 @@ const routes = [
     },
     {
         //Them lo hang moi
-        path: '/themlohangmoi/',
+        path: '/themlohangmoi',
         name: 'Them-LH',
         component: newShipment
     },
@@ -143,19 +145,32 @@ const routes = [
         name: 'Cap-nhat-SP',
         component: updateProduct
     },
+    {
+        //Them moi san pham
+        path: '/themsanpham',
+        name: 'Them-SP',
+        component: newProduct
+    },
 
     //QL QUI TRINH------------------------------------
     {
         //Danh sach quy trinh
-        path: '/danhsachquytrinh/',
+        path: '/danhsachquytrinh',
         name: 'Danh-sach-quy-trinh',
         component: listProcess
     },
     {
         //Danh sach quy trinh
-        path: '/chitietquytrinh/:name',
+        path: '/chitietquytrinh/:id',
         name: 'Chi-tiet-quy-trinh',
         component: detailProcess
+    },
+
+    {
+        //Danh sach quy trinh
+        path: '/themhoatdongmoi/:id',
+        name: 'Them-hoat-dong-moi',
+        component: addActiveProcess
     },
 
     //LOI------------------------------------

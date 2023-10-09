@@ -30,6 +30,7 @@
 <script>
 import { ref } from 'vue';
 import accountService from '@/service/account.service';
+
 export default {
     data() {
         return {
@@ -63,9 +64,10 @@ export default {
                 this.error['emptyinfo'] = false;
                 try {
                     await accountService.login(this.username, this.password).then((result) => {
-                        if (result.message) {
+                        if (result.data.message) {
+                            localStorage.setItem('user', result.headers.authorization)
                             //Day view ve trang home neu dang nhap thanh cong
-                            this.$router.push({ name: 'Thong-ke-SX', params: { id: result.data[0].id } });
+                            this.$router.push({ name: 'Thong-ke-SX', params: { id: result.data.data[0].id } });
                         }
                     });
                 } catch (err) {

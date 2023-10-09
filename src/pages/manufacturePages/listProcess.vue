@@ -1,80 +1,23 @@
 <template>
     <layout-default>
         <template #contents>
+            <modal-warning-component msg="Mã lô hàng không tồn tại!"></modal-warning-component>
+
             <h5 class="header-text ms-3">QUY TRÌNH SẢN XUẤT__:</h5>
+
+            <search-component msg="Tìm kiếm với mã lô hàng!" @submitFrom="searchInfo"></search-component>
+
             <div class="row">
-                <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
-                    <router-link :to="{ name: 'Chi-tiet-quy-trinh', params: { name: 1 } }" class="center">
+                <div class="col-sm-12 col-md-6 col-lg-4 mb-4" v-for="(item, index) in listShipment" :key="index">
+                    <router-link :to="{ name: 'Chi-tiet-quy-trinh', params: { id: item.id } }" class="center">
                         <div class="article-card">
-                            <div class="content">
-                                <p class="date">Jan 1, 2022</p>
-                                <p class="title">QUY TRÌNH SẢN XUẤT RAU CỦ NGẮN HẠN</p>
-                            </div>
-                            <img src="https://anhdep123.com/wp-content/uploads/2020/11/hinh-anh-mot-so-loai-rau.png"
-                                alt="article-cover" />
-                        </div>
-                    </router-link>
-                </div>
-                <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
-                    <router-link :to="{ name: 'Chi-tiet-quy-trinh', params: { name: 1 } }" class="center">
-                        <div class="article-card">
-                            <div class="content">
-                                <p class="date">Jan 1, 2022</p>
-                                <p class="title">QUY TRÌNH SẢN XUẤT LÚA GẠO</p>
-                            </div>
-                            <img src="https://tansonnhatairport.vn/wp-content/uploads/2018/11/gia-lua-gao.jpg"
-                                alt="article-cover" />
-                        </div>
-                    </router-link>
-                </div>
-                <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
-                    <router-link :to="{ name: 'Chi-tiet-quy-trinh', params: { name: 2 } }" class="center">
-                        <div class="article-card">
-                            <div class="content">
-                                <p class="date">Jan 1, 2022</p>
-                                <p class="title">QUY TRÌNH SẢN XUẤT CÀ CHUA</p>
-                            </div>
-                            <img src="https://www.aia.com.vn/vi/song-khoe/loi-khuyen/dinh-duong/an-ca-chua-song-co-tac-dung-gi.thumb.800.480.png?ck=1682571121"
-                                alt="article-cover" />
-                        </div>
-                    </router-link>
-                </div>
+                            <div class="content mb-3">
+                                <p class="text-black fw-bold">Ms: {{ item.id }}</p>
+                                <p class="title text-black fw-bold fs-6 text-uppercase">{{ item.name }} </p>
+                                <p class="date text-black fs-6">Ngày sản xuất: {{ item.date_manufacture }}</p>
 
-
-
-                <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
-                    <router-link :to="{ name: 'Chi-tiet-quy-trinh', params: { name: 1 } }" class="center">
-                        <div class="article-card">
-                            <div class="content">
-                                <p class="date">Jan 1, 2022</p>
-                                <p class="title">QUY TRÌNH SẢN XUẤT BẮP CẢI</p>
                             </div>
-                            <img src="https://images.baodantoc.vn/uploads/2022/Th%C3%A1ng%208/Ng%C3%A0y_18/Thanh/maxresdefault-1.jpg"
-                                alt="article-cover" />
-                        </div>
-                    </router-link>
-                </div>
-                <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
-                    <router-link :to="{ name: 'Chi-tiet-quy-trinh', params: { name: 1 } }" class="center">
-                        <div class="article-card">
-                            <div class="content">
-                                <p class="date">Jan 1, 2022</p>
-                                <p class="title">QUY TRÌNH SẢN XUẤT RAU CỦ NGẮN HẠN</p>
-                            </div>
-                            <img src="https://anhdep123.com/wp-content/uploads/2020/11/hinh-anh-mot-so-loai-rau.png"
-                                alt="article-cover" />
-                        </div>
-                    </router-link>
-                </div>
-                <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
-                    <router-link :to="{ name: 'Chi-tiet-quy-trinh', params: { name: 1 } }" class="center">
-                        <div class="article-card">
-                            <div class="content">
-                                <p class="date">Jan 1, 2022</p>
-                                <p class="title">QUY TRÌNH SẢN XUẤT CÀ CHUA</p>
-                            </div>
-                            <img src="https://www.aia.com.vn/vi/song-khoe/loi-khuyen/dinh-duong/an-ca-chua-song-co-tac-dung-gi.thumb.800.480.png?ck=1682571121"
-                                alt="article-cover" />
+                            <img src="../../assets/images/background-card.jpg" alt="article-cover" />
                         </div>
                     </router-link>
                 </div>
@@ -84,11 +27,53 @@
 </template>
 
 <script>
+import moment from 'moment';
+import * as bootstrap from 'bootstrap/dist/js/bootstrap';
+import searchComponent from '@/components/manufactureManagement/searchComponent.vue';
+import modalWarningComponent from '@/components/manufactureManagement/modalWarningComponent.vue';
 import defaultLayoutManufactureVue from '../../layouts/defaultLayoutManufacture.vue';
+import shipmentService from '@/service/shipment.service';
+
 export default {
     components: {
         layoutDefault: defaultLayoutManufactureVue,
+        searchComponent: searchComponent,
+        modalWarningComponent: modalWarningComponent
     },
+
+    data() {
+        return {
+            listShipment: [],
+        }
+    },
+
+    async created() {
+
+        this.listShipment = await shipmentService.getListShipment();
+        this.listShipment.forEach(element => {
+            element.date_manufacture = moment(element.date_manufacture).format('DD/MM/YYYY');
+        });
+    },
+
+    methods: {
+        async searchInfo(data) {
+            if (data !== '') {
+                try {
+                    await shipmentService.getShipment(data).then((result) => {
+                        this.listShipment = [result];
+                    });
+                    this.listShipment[0].date_manufacture = moment(this.listShipment[0].date_manufacture).format('DD/MM/YYYY');
+                } catch (error) {
+                    new bootstrap.Modal(document.getElementById("ModalWarning"), {}).show();
+                }
+            } else {
+                this.listShipment = await shipmentService.getListShipment();
+                this.listShipment.forEach(element => {
+                    element.date_manufacture = moment(element.date_manufacture).format('DD/MM/YYYY');
+                });
+            }
+        }
+    }
 }
 </script>
 <style lang="css" scoped>

@@ -5,9 +5,18 @@ class ProcessService {
         this.api = apiService(baseUrl);
     }
 
-    async getProcess(name) {
-        console.log(name)
-        return (await this.api.get(`/get-process/${name}`)).data.data;
+    async getProcess(id) {
+        return (await this.api.get(`/get-process/${id}`)).data.data.chain;
+    }
+
+    async checkDataIsChanged(id) {
+        return (await this.api.get(`/check-isvalid/${id}`)).data.data;
+    }
+
+    async addActive(id, timetamps, title, contents, idUser) {
+        return (await this.api.post('/new-process', {
+            id, timetamps, title, contents, idUser
+        }));
     }
 }
 

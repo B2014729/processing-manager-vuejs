@@ -30,12 +30,11 @@
 </template>
 
 <script>
-import accountService from '@/service/account.service';
 
 export default {
     methods: {
         async onLogout() {
-            await accountService.logout(32365);
+            localStorage.setItem('user', '');
             alert('Bạn có muốn đăng xuất!')
             this.$router.push('/')
         }

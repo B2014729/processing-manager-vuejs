@@ -56,7 +56,7 @@
                         </div>
 
                         <div class="d-flex align-items-end justify-content-end pb-4" style="height: 100px;">
-                            <router-link :to="{ name: 'Cap-nhat-tt-ca-nhan', params: { id: user.id || 23650 } }">
+                            <router-link :to="{ name: 'Cap-nhat-tt-ca-nhan' }">
                                 <button class="btn">Cập nhật thông tin</button>
                             </router-link>
                         </div>
@@ -70,8 +70,7 @@
 <script>
 import moment from 'moment';
 import defaultLayoutManufactureVue from '../layouts/defaultLayoutManufacture.vue';
-
-import stafManagementService from '@/service/staffManagement.service';
+import staffManagementService from '@/service/staffManagement.service';
 export default {
     components: {
         layoutDefault: defaultLayoutManufactureVue,
@@ -91,7 +90,7 @@ export default {
     },
 
     async created() {
-        this.user = await stafManagementService.getUser(this.$route.params.id)
+        this.user = await staffManagementService.getProfile(localStorage.getItem('user'));
         this.user.birth_date = moment(this.user.birth_date).format('DD-MM-YYYY');
     },
 }

@@ -32,9 +32,8 @@
                                 <router-link :to="{ name: 'Cap-nhat-SP', params: { id: item.id } }">
                                     <button class="ms-2 btn-update"><i class="fa-solid fa-pencil"></i></button>
                                 </router-link>
-                                <router-link :to="{ name: 'Chi-tiet-LH', params: { id: item.id } }">
-                                    <button class="ms-2 btn-remove"><i class="fa-solid fa-xmark"></i></button>
-                                </router-link>
+                                <button class="ms-2 btn-remove" @click="onDelete(item.id)"><i
+                                        class="fa-solid fa-xmark"></i></button>
                             </td>
                         </tr>
                     </tbody>
@@ -69,6 +68,18 @@ export default {
     },
 
     methods: {
+        async onDelete(id) {
+            if (confirm(`Bạn chắc chắn muốn xóa sản phẩm ${id}!`)) {
+                await productService.deleteProduct(id).then((result) => {
+                    if (result) {
+                        this.$router.go();
+                    } else {
+                        console.log('loi')
+                    }
+                })
+            }
+        },
+
         async searchInfo(data) {
             if (data !== '') {
                 try {

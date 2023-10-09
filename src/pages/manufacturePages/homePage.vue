@@ -18,7 +18,7 @@
                     </router-link>
                 </div>
                 <div class="col-xl-3 col-sm-6 col-12">
-                    <router-link :to="{ name: 'Danh-sach-LH' }">
+                    <router-link :to="{ name: 'Danh-sach-SP' }">
                         <card-component>
                             <template #icon-card>
                                 <i class="fa-brands fa-product-hunt fs-1 text-success"></i>
@@ -72,14 +72,13 @@
 </template>
 
 <script>
-import { ref } from 'vue';
+
 import router from "@/router";
 
 import defaultLayoutManufactureVue from '../../layouts/defaultLayoutManufacture.vue';
 import card from '../../components/manufactureManagement/cardComponent.vue';
 import chart from '../../components/manufactureManagement/chartComponent.vue';
 import accountService from '@/service/account.service';
-import { useRoute } from 'vue-router';
 
 export default {
     components: {
@@ -88,30 +87,20 @@ export default {
         chartComponent: chart
     },
     setup() {
-        const route = useRoute();
-        let login = ref(false);
-        let iduser = route.params.id || 32365;
         try {
-            accountService.session().then((result) => {
-                for (let i = 0; i < result.length; i++) {
-                    if (result[i].id == iduser && result[i].role === 1) {
-                        login.value = true;
-                        console.log(login.value)
+            if (localStorage.getItem('user') !== '') {
+                accountService.getRole(localStorage.getItem('user')).then((result) => {
+                    if (result !== 1) {
+                        router.push('/')
                     }
-                }
-            });
-        } catch (err) {
-            console.log(err)
-        }
-
-        setTimeout(() => {
-            if (!login.value) {
+                });
+            }
+            else {
                 router.push('/')
             }
-        }, 100)
-
-        return {
-            login
+        } catch (err) {
+            router.push('/')
+            console.log(err)
         }
     }
 }

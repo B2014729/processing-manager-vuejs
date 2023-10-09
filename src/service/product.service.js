@@ -19,7 +19,19 @@ class ProductService {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
-        }));
+        })).data.data;
+    }
+
+    async deleteProduct(id) {
+        return (await this.api.delete(`/product/${id}`)).data.data;
+    }
+
+    async newProduct(formData) {
+        return (await this.api.post('/new-product', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })).data.data;
     }
 }
 

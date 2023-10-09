@@ -13,12 +13,26 @@ class StaffService {
         return (await this.api.get(`/staff/${id}`)).data.data;
     }
 
+    async getProfile(token) {
+        return (await this.api.post(`/profile`, { 'token': token })).data.data;
+    }
+
+    async updateProfile(token, fullname, birth_date, gender, phone, id_number, address, email, id_DV, position, id_salary) {
+        return (await this.api.post(`/update-profile`, {
+            'token': token, fullname, birth_date, gender, phone, id_number, address, email, id_DV, position, id_salary
+        })).data;
+    }
+
     async createStaff(id, fullname, birth_date, gender, id_number, address, phone, email, id_DV, position, id_salary, username, password, role) {
-        return (await this.api.post('/new-staff', { id, fullname, birth_date, gender, id_number, address, phone, email, id_DV, position, id_salary, username, password, role })).data;
+        return (await this.api.post('/new-staff', {
+            id, fullname, birth_date, gender, id_number, address, phone, email, id_DV, position, id_salary, username, password, role
+        })).data;
     }
 
     async updateUser(id, fullname, birth_date, gender, phone, id_number, address, email, id_DV, position, id_salary) {
-        return (await this.api.put(`/staff/${id}`, { fullname, birth_date, gender, phone, id_number, address, email, id_DV, position, id_salary })).data;
+        return (await this.api.put(`/staff/${id}`, {
+            fullname, birth_date, gender, phone, id_number, address, email, id_DV, position, id_salary
+        })).data;
     }
 
     async deleteUser(id) {

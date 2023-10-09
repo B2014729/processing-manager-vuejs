@@ -2,7 +2,7 @@
     <layout-default>
         <template #contents>
             <!--Modal notification success-->
-            <modal-success-component msg="Đã cập nhật thông tin lô hàng!" @ok="goDetailShipment"></modal-success-component>
+            <modal-success-component msg="Đã cập nhật thông tin lô hàng!" @ok="onModal"></modal-success-component>
 
             <h5 class="header-text ms-3">THÊM MỚI LÔ HÀNG__:</h5>
             <div class="d-flex justify-content-center mb-4">
@@ -166,7 +166,7 @@ export default {
         },
 
         onModal() {
-            this.$router.push('/danhsachlohang/');
+            this.$router.push(`/chitietlohang/${this.data['id']}`);
         }
     }
 }

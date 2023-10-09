@@ -1,16 +1,16 @@
 <template>
     <div class="border-header d-flex align-items-center justify-content-center">
-        <router-link :to="{ name: 'Thong-ke-SX', params: { id: 32365 } }" class="logo-text">FARM STORE</router-link>
+        <router-link :to="{ name: 'Thong-ke-SX' }" class="logo-text">FARM STORE</router-link>
     </div>
     <nav class="nav-left">
         <ul>
             <li class="border-bottom mt-3">
-                <router-link class="nav-item" :to="{ name: 'Thong-ke-SX', params: { id: 32365 } }">
+                <router-link class="nav-item" :to="{ name: 'Thong-ke-SX' }">
                     <i class="fa-solid fa-scale-balanced"></i> THỐNG KÊ
                 </router-link>
             </li>
             <li class="border-bottom mt-3">
-                <router-link class="nav-item" :to="{ name: 'TT-ca-nhan', params: { id: 32365 } }">
+                <router-link class="nav-item" :to="{ name: 'TT-ca-nhan' }">
                     <i class="fa-solid fa-user"></i> CÁ NHÂN
                 </router-link>
             </li>
@@ -49,7 +49,7 @@
                             </router-link>
                         </li>
                         <li>
-                            <router-link :to="{ name: 'Danh-sach-quy-trinh' }" class="dropdown-item">
+                            <router-link :to="{ name: 'Them-SP' }" class="dropdown-item">
                                 Thêm sẩn phẩm mới
                             </router-link>
                         </li>

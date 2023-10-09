@@ -117,7 +117,6 @@ export default {
     methods:
     {
         async onSubmitUpdate() {
-            console.log('submit form')
             if (!this.user.fullname || !this.user.birth_date ||
                 !this.user.gender || !this.user.phone || !this.user.id_number || !this.user.address || !this.user.email ||
                 !this.user.id_DV || !this.user.position || !this.user.id_salary) {
@@ -125,12 +124,13 @@ export default {
             } else {
                 this.error['enoughInfor'] = false;
                 try {
-                    await staffManagementService.updateUser(this.$route.params.id, this.user.fullname, this.user.birth_date,
+                    let token = localStorage.getItem('user');
+                    await staffManagementService.updateProfile(token, this.user.fullname, this.user.birth_date,
                         this.user.gender, this.user.phone, this.user.id_number, this.user.address, this.user.email,
                         this.user.id_DV, this.user.position, this.user.id_salary).then((result) => {
                             if (result.message) {
                                 alert('Thông tin đã được cập nhật!')
-                                this.$router.push(`/canhan/${this.$route.params.id}`)
+                                this.$router.push(`/canhan`)
                             }
                         })
                 } catch (error) {
@@ -141,8 +141,8 @@ export default {
     },
 
     async created() {
-        this.user = await staffManagementService.getUser(this.$route.params.id);
-        this.user.birth_date = moment(this.user.birth_date).format('YYYY-MM-DD');
+        this.user = await staffManagementService.getProfile(localStorage.getItem('user'));
+        this.user.birth_date = moment(this.user.date_manufacture).format('YYYY-MM-DD');
     }
 }
 </script>

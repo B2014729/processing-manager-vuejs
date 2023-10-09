@@ -18,11 +18,15 @@ class ShipmentService {
     }
 
     async newShipment(id, name, id_product, id_staff_Mn, date_manufacture, status, quantity, price) {
-        return (await this.api.post('/new-shipment', { id, name, id_product, id_staff_Mn, date_manufacture, status, quantity, price })).data.message;
+        return (await this.api.post('/new-shipment', {
+            id, name, id_product, id_staff_Mn, date_manufacture, status, quantity, price
+        })).data.message;
     }
 
     async updateShipment(id, name, id_product, id_staff_Mn, date_manufacture, status, quantity, price) {
-        return (await this.api.put(`get-shipment/${id}`, { name, id_product, id_staff_Mn, date_manufacture, status, quantity, price })).data;
+        return (await this.api.put(`get-shipment/${id}`, {
+            name, id_product, id_staff_Mn, date_manufacture, status, quantity, price
+        })).data;
     }
 }
 
