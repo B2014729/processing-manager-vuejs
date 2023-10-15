@@ -6,6 +6,7 @@ import profile from '../pages/profilePage.vue';
 import updateProfile from '../pages/updateProfilePage.vue';
 
 import manufactureHome from '../pages/manufacturePages/homePage.vue';
+import revenueStatistics from '../pages/manufacturePages/revenueStatistics.vue';
 
 import listStaff from '../pages/manufacturePages/listStaff.vue';
 import profileStaff from '../pages/manufacturePages/detailStaff.vue';
@@ -36,17 +37,24 @@ const routes = [
 
     //CA NHAN------------------------------------
     {
-        //Thong ke
+        //Dang nhap
         path: '/',
         name: 'login',
         component: loginPages
     },
 
     {
-        //Thong ke
+        //Trang chu
         path: '/trangchu',
         name: 'Thong-ke-SX',
         component: manufactureHome
+    },
+
+    {
+        //Trang chu
+        path: '/thongkedoanhthu',
+        name: 'Thong-ke-DT',
+        component: revenueStatistics
     },
 
     {

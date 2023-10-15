@@ -1,6 +1,7 @@
 <template>
-    <div class="w-75 ms-5">
+    <div class="w-75 ms-5 mb-4">
         <bar :data="data" :options="options" />
+        <p class="text-center">{{ description }}</p>
     </div>
 </template>
   
@@ -22,23 +23,32 @@ export default {
     components: {
         bar: Bar
     },
+    props: {
+        value: {
+            typeof: Array,
+            require
+        },
+        description: {
+            typeof: String,
+            default: '',
+        }
+    },
     data() {
         return {
-            data: {
-                datasets: [{
-                    data: [
-                        { x: 'Lúa gạo', y: 178567000 },
-                        { x: 'Rau', y: 365597090 },
-                        { x: 'Củ', y: 74590290 },
-                        { x: 'Trái cây', y: 245288000 },
-
-                    ]
-                }]
-            },
+            data: {},
             options: {
                 responsive: true
             }
         }
+    },
+
+
+    created() {
+        this.data = {
+            datasets: [{
+                data: this.value,
+            }]
+        };
     }
 }
 </script>

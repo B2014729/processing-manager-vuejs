@@ -6,7 +6,8 @@
             <button class="mx-2 btn btn-secondary" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
         </form>
         <div class="col-md-3 d-flex justify-content-end">
-            <button class="btn btn-secondary me-3"><i class="fa-solid fa-sort"></i></button>
+            <button class="btn btn-secondary me-3" @click="onFilter"><i class="fa-solid fa-filter"
+                    style="font-size: 10px;"></i></button>
         </div>
     </div>
 </template>
@@ -29,6 +30,10 @@ export default {
     methods: {
         submit() {
             this.$emit('submitFrom', this.searchInfor)
+        },
+
+        onFilter() {
+            this.$emit('onFilter')
         }
     },
 }

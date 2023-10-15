@@ -1,14 +1,14 @@
 <template>
     <layout-default>
         <template #contents>
-            <h5 class="header-text ms-3">QUY TRÌNH SẢN XUẤT {{ name }}__:</h5>
+            <h5 class="header-text ms-3">QUY TRÌNH SẢN XUẤT__:</h5>
             <div class="w-100 d-flex justify-content-center">
                 <div class="w-50 mb-3" style="box-shadow: 0px 0px 12px 6px rgba(158, 131, 131, 0.678);">
                     <div v-if="Process.length === 0">
                         <p class="text-warning mt-2 ms-2">Chưa có thông tin nào được cập nhật tại đây!</p>
                     </div>
-                    <div v-else class="card" style="border: none; border-radius: 0px;"
-                        v-for="(item, index) in    Process   " :key="index">
+                    <div v-else class="card" style="border: none; border-radius: 0px;" v-for="(item, index) in Process"
+                        :key="index">
                         <div class="row g-0">
                             <div class="col-md-2">
                                 <img src="../../assets/images/zyro-image.png" class="img-fluid rounded-start h-100"
@@ -21,7 +21,8 @@
                                     <p class="card-text">
                                         <small class="text-muted">Ngày: {{ item.data.dateUpdate }}</small>
                                     </p>
-                                    <p v-if="true" class="card-text"><small class="text-warning">Đã
+                                    <p v-if="checkIssetInArray(index, dataIsUpdated)" class="card-text"><small
+                                            class="text-warning">Đã
                                             chỉnh sửa!</small></p>
                                 </div>
                             </div>
@@ -29,7 +30,7 @@
                     </div>
                     <div class="w-100 d-flex justify-content-between my-2">
                         <router-link class="mx-2 text-success" :to="{ name: 'Danh-sach-nhan-vien' }">Chứng
-                            nhận {{ checkDataIsUpdated() }}</router-link>
+                            nhận</router-link>
                         <div class="d-flex">
                             <router-link :to="{ name: 'Danh-sach-quy-trinh' }">
                                 <button class="btn btn-secondary"><i class="fa-solid fa-arrow-left px-1"></i></button>
@@ -58,7 +59,7 @@ export default {
         return {
             id: this.$route.params.id,
             Process: [],
-            dataIsUpated: []
+            dataIsUpdated: []
         }
     },
 
@@ -69,31 +70,31 @@ export default {
                 this.Process = result
             });
 
-            // await ProcessService.checkDataIsChanged(this.id).then((result) => {
-            //     this.dataIsUpated = result;
-            //     console.log((this.dataIsUpated));
-            // });
+            await ProcessService.checkDataIsChanged(this.id).then((result) => {
+                this.dataIsUpdated = result;
+                console.log(this.dataIsUpdated);
+            });
 
-            //Error
-            //this.dataIsUpated = await this.checkDataIsUpdated(this.id);
-            console.log(this.dataIsUpated);
         } catch (err) {
             console.log(err);
         }
     },
 
     setup() {
-        let checkDataIsUpdated = async (id) => {
-            await ProcessService.checkDataIsChanged(id).then((result) => {
-                return result;
-            });
+        let checkIssetInArray = (index, array) => {
+            for (let i = 0; i < array.length; i++) {
+                if (index === array[i]) {
+                    return true;
+                }
+            }
+            return false;
         }
+
         return {
-            checkDataIsUpdated
+            checkIssetInArray
         }
     }
 }
-
 </script>
     
 <style lang="css" scoped>

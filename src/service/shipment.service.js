@@ -13,6 +13,10 @@ class ShipmentService {
         return (await this.api.get(`/get-shipment/${id}`)).data.data;
     }
 
+    async getShipmentFilter(month, year, id_product) {
+        return (await this.api.post('/get-shipment-filter', { month, year, id_product })).data.data;
+    }
+
     async checkIsset(id) {
         return ((await this.api.post('shipment/check-isset', { id }))).data.message;
     }

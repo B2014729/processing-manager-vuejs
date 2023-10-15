@@ -7,7 +7,7 @@
             <h5 class="header-text ms-3">THÊM HOẠT ĐỘNG MỚI CHO LÔ HÀNG __:</h5>
             <div class="d-flex justify-content-center mb-4">
                 <div class="main-profile w-50 overflow-hidden">
-                    <form @submit.prevent="submit" enctype="multipart/form-data">
+                    <form @submit.prevent="submit">
                         <div class="mt-3 d-flex justify-content-center">
                             <div class="w-75">
                                 <h6 class="fw-bold text-secondary">THÔNG TIN CẬP NHẬT:</h6>
@@ -94,7 +94,6 @@ export default {
                 try {
                     await ProcessService.addActive(this.id, this.dataUpdate, this.data['title'], this.data['contents'], this.user.id).then((result) => {
                         if (result) {
-                            console.log(result)
                             var myModal = new bootstrap.Modal(document.getElementById("myModal"), {});
                             myModal.show();
                         }

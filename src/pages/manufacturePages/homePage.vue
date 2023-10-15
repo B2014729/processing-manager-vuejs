@@ -3,13 +3,13 @@
         <template #contents>
             <div class="row">
                 <div class="col-xl-3 col-sm-6 col-12">
-                    <router-link :to="{ name: 'Danh-sach-LH' }">
+                    <router-link :to="{ name: 'Thong-ke-DT' }">
                         <card-component>
                             <template #icon-card>
                                 <i class="fa-solid fa-dollar-sign fs-1 text-success"></i>
                             </template>
                             <template #counts>
-                                <h4 class="text-success">178 567 000</h4>
+                                <h4 class="text-success">{{ formatNumber(sumRevenue) }}</h4>
                             </template>
                             <template #title-card>
                                 <span>Doanh thu (VND)</span>
@@ -65,7 +65,14 @@
             </div>
 
             <div>
-                <chart-component></chart-component>
+                <chart-component description='Biểu đồ thống kê tất cả số lượng đơn hàng của từng sản phẩm.' :value="[
+                    { x: 'Cá tra', y: 5 },
+                    { x: 'Tôm', y: 8 },
+                    { x: 'Cá ngừ', y: 4 },
+                    { x: 'Mực', y: 7 },
+                    { x: 'Khác', y: 9 },]
+                    ">
+                </chart-component>
             </div>
         </template>
     </layout-default>
@@ -79,6 +86,7 @@ import defaultLayoutManufactureVue from '../../layouts/defaultLayoutManufacture.
 import card from '../../components/manufactureManagement/cardComponent.vue';
 import chart from '../../components/manufactureManagement/chartComponent.vue';
 import accountService from '@/service/account.service';
+import ShipmentService from '@/service/shipment.service.js';
 
 export default {
     components: {
@@ -86,6 +94,14 @@ export default {
         cardComponent: card,
         chartComponent: chart
     },
+
+    data() {
+        return {
+            sumRevenue: 0,
+            listtShipment: [],
+        }
+    },
+
     setup() {
         try {
             if (localStorage.getItem('user') !== '') {
@@ -102,6 +118,22 @@ export default {
             router.push('/')
             console.log(err)
         }
+
+        function formatNumber(number) {
+            return (new Intl.NumberFormat().format(number));
+        }
+
+        return {
+            formatNumber
+        }
+    },
+
+    async created() {
+        this.listShipment = await ShipmentService.getListShipment();
+        this.listShipment.forEach(element => {
+            this.sumRevenue = this.sumRevenue + (element.price * element.quantity);
+        });
+
     }
 }
 </script>
