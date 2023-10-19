@@ -33,7 +33,7 @@
                     </router-link>
                 </div>
                 <div class="col-xl-3 col-sm-6 col-12">
-                    <router-link :to="{ name: 'Danh-sach-LH' }">
+                    <router-link :to="{ name: 'Danh-sach-quy-trinh' }">
                         <card-component>
                             <template #icon-card>
                                 <i class="fa-solid fa-pencil fs-1 text-secondary"></i>

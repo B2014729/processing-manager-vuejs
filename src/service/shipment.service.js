@@ -28,10 +28,11 @@ class ShipmentService {
     }
 
     async updateShipment(id, name, id_product, id_staff_Mn, date_manufacture, status, quantity, price) {
-        return (await this.api.put(`get-shipment/${id}`, {
+        return (await this.api.put(`/get-shipment/${id}`, {
             name, id_product, id_staff_Mn, date_manufacture, status, quantity, price
         })).data;
     }
+
 }
 
 export default new ShipmentService();

@@ -42,13 +42,12 @@
             </div>
             <div class="d-flex justify-content-between">
                 <h5 class="header-text ms-3">THỐNG KÊ DOANG THU__:</h5>
-                <button class="btn btn-secondary h-50 mt-2">Xuất file Excel</button>
+                <button class="btn btn-secondary h-50 mt-2" @click="onExportFile">Xuất file Excel</button>
             </div>
 
             <chart-component
                 :value='[{ "x": "1", "y": 0 }, { "x": "2", "y": 0 }, { "x": "3", "y": 0 }, { "x": "4", "y": 0 }, { "x": "5", "y": 1550000000 }, { "x": "6", "y": 0 }, { "x": "7", "y": 0 }, { "x": "8", "y": 420000000 }, { "x": "9", "y": 444000000 }, { "x": "10", "y": 555000000 }, { "x": "11", "y": 0 }, { "x": "12", "y": 0 }]'
                 description="Biểu đồ thể hiện doanh thu theo từng tháng qua các năm.">
-
             </chart-component>
 
             <h6 class="fw-bold text-secondary ms-4">DANH SÁCH CÁC LÔ HÀNG:</h6>
@@ -94,13 +93,17 @@
 
 <script>
 import * as bootstrap from 'bootstrap/dist/js/bootstrap';
+import moment from 'moment';
+import * as xlsx from 'xlsx/xlsx.mjs'
+
+import defaultLayoutManufactureVue from '../../layouts/defaultLayoutManufacture.vue';
+
 import searchComponent from '@/components/manufactureManagement/searchComponent.vue';
 import modalWarningComponent from '@/components/manufactureManagement/modalWarningComponent.vue';
 import chartComponent from '@/components/manufactureManagement/chartComponent.vue';
-import defaultLayoutManufactureVue from '../../layouts/defaultLayoutManufacture.vue';
+
 import ProductSevice from '@/service/product.service.js'
 import ShipmentService from '@/service/shipment.service.js';
-import moment from 'moment';
 
 export default {
     components: {
@@ -201,8 +204,27 @@ export default {
             this.listShipment.forEach(element => {
                 element.date_manufacture = moment(element.date_manufacture).format('DD/MM/YYYY');
             });
+        },
 
-
+        async onExportFile() {
+            let newData = [];
+            this.listShipment.forEach(element => {
+                let newItem = {
+                    'id': element.id,
+                    'name': element.name,
+                    'date_manufacture': element.date_manufacture,
+                    'quantity': element.quantity,
+                    'price': element.price,
+                    'sum': (element.price * element.quantity)
+                }
+                newData.push(newItem);
+            });
+            const heading = [['ID', 'Tên lô hàng', 'Ngày sản xuất', 'Số lượng', 'Giá bán', 'Tổng']]
+            const workBook = xlsx.utils.book_new();
+            const workSheet = xlsx.utils.json_to_sheet(newData);
+            xlsx.utils.sheet_add_aoa(workSheet, heading)
+            xlsx.utils.book_append_sheet(workBook, workSheet, "Sheet1");
+            xlsx.writeFile(workBook, 'data.xlsx');
         }
     }
 }
