@@ -1,6 +1,6 @@
 <template>
     <div class="border-header d-flex align-items-center justify-content-center">
-        <router-link :to="{ name: 'Thong-ke-SX' }" class="logo-text">FARM STORE</router-link>
+        <router-link :to="{ name: 'Thong-ke-SX' }" class="logo-text">EAST COAST</router-link>
     </div>
     <nav class="nav-left">
         <ul>

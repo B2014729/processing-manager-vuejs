@@ -49,7 +49,7 @@
                                 <br>
 
                                 <li> <span class="fw-bold">Nhân viên quản lí: {{ userManager.fullname }}</span>
-                                    <router-link :to="{ name: 'Chi-tiet-NV', params: { id: 14567 } }">
+                                    <router-link :to="{ name: 'Chi-tiet-NV', params: { id: shipment.id_staff_Mn } }">
                                         ({{ shipment.id_staff_Mn }})
                                     </router-link>
                                 </li>

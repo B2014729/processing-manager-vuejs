@@ -6,7 +6,7 @@
                 <div class="main-profile row w-75  overflow-hidden">
                     <div class="col-md-4 col-sm-6 col-12">
                         <div class="w-100 m-3 overflow-hidden ">
-                            <img class="w-100 mt-3 rounded-circle" :src="`${product.image}`" alt="image -product">
+                            <img class="w-100 mt-3" :src="`${product.image}`" alt="image -product">
                         </div>
                     </div>
                     <div class="col-md-8 col-sm-6 col-12">

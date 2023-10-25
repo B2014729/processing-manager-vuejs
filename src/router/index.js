@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
+//ADMIN----------------------------------------------
 import loginPages from '../layouts/loginLayout.vue';
 
 import profile from '../pages/profilePage.vue';
@@ -28,12 +29,16 @@ import listProcess from '../pages/manufacturePages/listProcess.vue';
 import detailProcess from '../pages/manufacturePages/detailProcess.vue';
 import addActiveProcess from '../pages/manufacturePages/addActiveProcess.vue';
 
+//CONSUMER----------------------------------------------
+import homePageConsumer from '../pages/consumer/homePage.vue';
+
 import NotFound from '../pages/error/notFound.vue';
 
 
 //import defaultLayoutManufacture from '../layouts/defaultLayoutManufacture.vue';
 
 const routes = [
+    //------------------------------MANAGEMENT (Router admin)--------------------------------
 
     //CA NHAN------------------------------------
     {
@@ -179,6 +184,15 @@ const routes = [
         path: '/themhoatdongmoi/:id',
         name: 'Them-hoat-dong-moi',
         component: addActiveProcess
+    },
+
+
+    //------------------------------CONSUMER (Router consumer)--------------------------------
+    {
+        //Trang chu khach hang
+        path: '/khachhang',
+        name: 'Khach-hang',
+        component: homePageConsumer
     },
 
     //LOI------------------------------------

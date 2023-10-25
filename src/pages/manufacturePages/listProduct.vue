@@ -38,6 +38,11 @@
                         </tr>
                     </tbody>
                 </table>
+                <div class="d-flex justify-content-end">
+                    <router-link :to="{ name: 'Them-SP' }">
+                        <button class="btn btn-success rounded-circle"><i class="fa-solid fa-plus"></i></button>
+                    </router-link>
+                </div>
             </div>
         </template>
     </layout-default>
