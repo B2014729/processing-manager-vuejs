@@ -31,6 +31,8 @@ import addActiveProcess from '../pages/manufacturePages/addActiveProcess.vue';
 
 //CONSUMER----------------------------------------------
 import homePageConsumer from '../pages/consumer/homePage.vue';
+import processManufacture from '../pages/consumer/processManufacture.vue';
+import productInfo from '../pages/consumer/productInfo.vue';
 
 import NotFound from '../pages/error/notFound.vue';
 
@@ -43,7 +45,7 @@ const routes = [
     //CA NHAN------------------------------------
     {
         //Dang nhap
-        path: '/',
+        path: '/login',
         name: 'login',
         component: loginPages
     },
@@ -190,9 +192,23 @@ const routes = [
     //------------------------------CONSUMER (Router consumer)--------------------------------
     {
         //Trang chu khach hang
-        path: '/khachhang',
+        path: '/',
         name: 'Khach-hang',
         component: homePageConsumer
+    },
+
+    {
+        //Quy trinh san xuat va tra cu san pham
+        path: '/tracuusanpham',
+        name: 'Tra-cuu-SP',
+        component: processManufacture
+    },
+
+    {
+        //Quy trinh san xuat cua san pham
+        path: '/tracuusanpham/:id',
+        name: 'Tra-cuu-quy-trinh-SP',
+        component: productInfo
     },
 
     //LOI------------------------------------

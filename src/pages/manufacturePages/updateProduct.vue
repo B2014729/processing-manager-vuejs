@@ -74,7 +74,6 @@
 <script>
 import { ref } from 'vue';
 import * as bootstrap from 'bootstrap/dist/js/bootstrap';
-
 import defaultLayoutManufactureVue from '../../layouts/defaultLayoutManufacture.vue';
 import modalSuccessComponent from '@/components/manufactureManagement/modalSuccessComponent.vue';
 import productService from '@/service/product.service';

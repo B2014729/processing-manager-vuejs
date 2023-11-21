@@ -19,7 +19,9 @@
             </div>
         </div>
         <div class="col-md-1  d-flex align-items-center justify-content-center">
-            <button class="btn btn-secondary rounded-circle"><i class="fa-solid fa-user"></i></button>
+            <router-link :to="{ name: 'login' }">
+                <button class="btn btn-secondary rounded-circle"><i class="fa-solid fa-user"></i></button>
+            </router-link>
         </div>
     </header>
 </template>

@@ -13,8 +13,10 @@
                 <div class="collapse navbar-collapse" id="navbarNavDropdown">
                     <ul class="navbar-nav mx-auto">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#"> <i class="fa-solid fa-house"></i> Trang
-                                chủ</a>
+                            <router-link class="nav-link" :to="{ name: 'Khach-hang' }">
+                                <i class="fa-solid fa-house"></i> Trang chủ
+                            </router-link>
+
                         </li>
                         <li class="nav-item mx-2">
                             <div class="dropdown nav-link">
@@ -30,7 +32,10 @@
                             </div>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Tra cứu thông tin</a>
+                            <router-link class="nav-link" :to="{ name: 'Tra-cuu-SP' }">
+                                Tra cứu thông tin
+                            </router-link>
+
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Giới thiệu</a>

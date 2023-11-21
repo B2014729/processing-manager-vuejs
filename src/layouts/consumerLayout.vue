@@ -7,7 +7,8 @@
 
         </nav-consumer>
         <slot name="contents"></slot>
-        <footer-component></footer-component>
+
+        <footer-component class="mt-4 border-top"></footer-component>
 
     </div>
 </template>
