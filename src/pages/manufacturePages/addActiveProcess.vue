@@ -46,12 +46,14 @@
 
 <script>
 import { ref } from 'vue';
+import router from '@/router';
 import * as bootstrap from 'bootstrap/dist/js/bootstrap';
 
 import defaultLayoutManufactureVue from '../../layouts/defaultLayoutManufacture.vue';
 import modalSuccessComponent from '@/components/manufactureManagement/modalSuccessComponent.vue';
 import staffManagementService from '@/service/staffManagement.service.js'
 import ProcessService from '@/service/process.service.js';
+import accountService from '@/service/account.service';
 
 export default {
     data() {
@@ -70,6 +72,22 @@ export default {
 
     setup() {
         let error = ref([]);
+        try {
+            if (localStorage.getItem('user') !== '') {
+                accountService.getRole(localStorage.getItem('user')).then((result) => {
+                    if (result !== 1) {
+                        router.push('/')
+                    }
+                });
+            }
+            else {
+                router.push('/')
+            }
+        } catch (err) {
+            router.push('/')
+            console.log(err)
+        }
+
         return {
             error
         }

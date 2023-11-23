@@ -95,6 +95,7 @@
 import * as bootstrap from 'bootstrap/dist/js/bootstrap';
 import moment from 'moment';
 import * as xlsx from 'xlsx/xlsx.mjs'
+import router from '@/router';
 
 import defaultLayoutManufactureVue from '../../layouts/defaultLayoutManufacture.vue';
 
@@ -104,6 +105,7 @@ import chartComponent from '@/components/manufactureManagement/chartComponent.vu
 
 import ProductSevice from '@/service/product.service.js'
 import ShipmentService from '@/service/shipment.service.js';
+import accountService from '@/service/account.service';
 
 export default {
     components: {
@@ -124,6 +126,21 @@ export default {
     },
 
     setup() {
+        try {
+            if (localStorage.getItem('user') !== '') {
+                accountService.getRole(localStorage.getItem('user')).then((result) => {
+                    if (result !== 1) {
+                        router.push('/')
+                    }
+                });
+            }
+            else {
+                router.push('/')
+            }
+        } catch (err) {
+            router.push('/')
+            console.log(err)
+        }
         function formatNumber(number) {
             return (new Intl.NumberFormat().format(number));
         }

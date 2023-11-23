@@ -61,12 +61,31 @@
 </template>
 
 <script>
+import router from '@/router';
 import defaultLayoutManufactureVue from '../../layouts/defaultLayoutManufacture.vue';
 
 import productService from '@/service/product.service';
+import accountService from '@/service/account.service';
 export default {
     components: {
         layoutDefault: defaultLayoutManufactureVue,
+    },
+    setup() {
+        try {
+            if (localStorage.getItem('user') !== '') {
+                accountService.getRole(localStorage.getItem('user')).then((result) => {
+                    if (result !== 1) {
+                        router.push('/')
+                    }
+                });
+            }
+            else {
+                router.push('/')
+            }
+        } catch (err) {
+            router.push('/')
+            console.log(err)
+        }
     },
 
     data() {

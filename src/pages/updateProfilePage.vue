@@ -94,11 +94,12 @@
 
 <script>
 import moment from 'moment';
+import router from '@/router';
 import { ref } from 'vue'
 import defaultLayoutManufactureVue from '../layouts/defaultLayoutManufacture.vue';
 
 import staffManagementService from '@/service/staffManagement.service';
-
+import accountService from '@/service/account.service';
 export default {
     components: {
         layoutDefault: defaultLayoutManufactureVue,
@@ -109,6 +110,21 @@ export default {
         }
     },
     setup() {
+        try {
+            if (localStorage.getItem('user') !== '') {
+                accountService.getRole(localStorage.getItem('user')).then((result) => {
+                    if (result !== 1) {
+                        router.push('/')
+                    }
+                });
+            }
+            else {
+                router.push('/')
+            }
+        } catch (err) {
+            router.push('/')
+            console.log(err)
+        }
         let data = [];
         let error = ref([]);
 

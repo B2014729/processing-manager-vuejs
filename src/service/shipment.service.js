@@ -18,7 +18,7 @@ class ShipmentService {
     }
 
     async checkIsset(id) {
-        return ((await this.api.post('shipment/check-isset', { id }))).data.message;
+        return ((await this.api.post('/shipment/check-isset', { id }))).data.message;
     }
 
     async newShipment(id, name, id_product, id_staff_Mn, date_manufacture, status, quantity, price) {
@@ -31,6 +31,10 @@ class ShipmentService {
         return (await this.api.put(`/get-shipment/${id}`, {
             name, id_product, id_staff_Mn, date_manufacture, status, quantity, price
         })).data;
+    }
+
+    async deleteShipment(id) {
+        return (await this.api.delete(`/get-shipment/${id}`)).data;
     }
 
 }

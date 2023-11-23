@@ -32,9 +32,8 @@
                                 <router-link :to="{ name: 'Cap-nhat-LH', params: { id: item.id } }">
                                     <button class="ms-2 btn-update"><i class="fa-solid fa-pencil"></i></button>
                                 </router-link>
-                                <router-link :to="{ name: 'Chi-tiet-LH', params: { id: item.id } }">
-                                    <button class="ms-2 btn-remove"><i class="fa-solid fa-xmark"></i></button>
-                                </router-link>
+                                <button class="ms-2 btn-remove" @click="onDelete(item.id)"><i
+                                        class="fa-solid fa-xmark"></i></button>
                             </td>
                         </tr>
                     </tbody>
@@ -88,6 +87,20 @@ export default {
                 this.listShipment.forEach(element => {
                     element.date_manufacture = moment(element.date_manufacture).format('DD/MM/YYYY');
                 });
+            }
+        },
+
+        async onDelete(id) {
+            if (confirm(`Bạn muốn xóa lô hàng: ${id}`)) {
+                try {
+                    await shipmentService.deleteShipment(id).then((result) => {
+                        if (result.data) {
+                            this.listShipment = shipmentService.getListShipment();
+                        }
+                    })
+                } catch (error) {
+                    console.log(error)
+                }
             }
         }
     }

@@ -44,11 +44,13 @@
 </template>
 
 <script>
+import router from '@/router';
 import * as bootstrap from 'bootstrap/dist/js/bootstrap';
 import modalWarningComponent from '@/components/manufactureManagement/modalWarningComponent.vue';
 import searchComponent from '@/components/manufactureManagement/searchComponent.vue';
 import defaultLayoutManufactureVue from '../../layouts/defaultLayoutManufacture.vue';
 import StaffManagementService from '@/service/staffManagement.service';
+import accountService from '@/service/account.service';
 
 export default {
     components: {
@@ -56,6 +58,24 @@ export default {
         searchComponent: searchComponent,
         modalWarningComponent: modalWarningComponent
     },
+    setup() {
+        try {
+            if (localStorage.getItem('user') !== '') {
+                accountService.getRole(localStorage.getItem('user')).then((result) => {
+                    if (result !== 1) {
+                        router.push('/')
+                    }
+                });
+            }
+            else {
+                router.push('/')
+            }
+        } catch (err) {
+            router.push('/')
+            console.log(err)
+        }
+    },
+
     data() {
         return {
             listStaff: [],

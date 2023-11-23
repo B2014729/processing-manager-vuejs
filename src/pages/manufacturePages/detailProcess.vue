@@ -47,7 +47,8 @@
     </layout-default>
 </template>
 <script>
-
+import router from '@/router';
+import accountService from '@/service/account.service';
 import defaultLayoutManufactureVue from '../../layouts/defaultLayoutManufacture.vue';
 import ProcessService from '@/service/process.service.js';
 
@@ -81,6 +82,22 @@ export default {
     },
 
     setup() {
+        try {
+            if (localStorage.getItem('user') !== '') {
+                accountService.getRole(localStorage.getItem('user')).then((result) => {
+                    if (result !== 1) {
+                        router.push('/')
+                    }
+                });
+            }
+            else {
+                router.push('/')
+            }
+        } catch (err) {
+            router.push('/')
+            console.log(err)
+        }
+
         let checkIssetInArray = (index, array) => {
             for (let i = 0; i < array.length; i++) {
                 if (index === array[i]) {

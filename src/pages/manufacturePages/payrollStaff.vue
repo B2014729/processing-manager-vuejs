@@ -52,11 +52,13 @@
 
 <script>
 import * as bootstrap from 'bootstrap/dist/js/bootstrap';
+import router from '@/router';
 import searchComponent from '../../components/manufactureManagement/searchComponent.vue';
 import modalWarningComponent from '@/components/manufactureManagement/modalWarningComponent.vue';
 
 import defaultLayoutManufactureVue from '../../layouts/defaultLayoutManufacture.vue';
 import StaffManagementService from '@/service/staffManagement.service.js';
+import accountService from '@/service/account.service';
 export default {
 
     components: {
@@ -64,6 +66,31 @@ export default {
         searchComponent: searchComponent,
         modalWarningComponent: modalWarningComponent,
     },
+
+    setup() {
+        function formatNumber(number) {
+            return (new Intl.NumberFormat().format(number));
+        }
+        try {
+            if (localStorage.getItem('user') !== '') {
+                accountService.getRole(localStorage.getItem('user')).then((result) => {
+                    if (result !== 1) {
+                        router.push('/')
+                    }
+                });
+            }
+            else {
+                router.push('/')
+            }
+        } catch (err) {
+            router.push('/')
+            console.log(err)
+        }
+        return {
+            formatNumber
+        }
+    },
+
     data() {
         return {
             payStaff: [],
@@ -82,15 +109,6 @@ export default {
         });
     },
 
-    setup() {
-        function formatNumber(number) {
-            return (new Intl.NumberFormat().format(number));
-        }
-
-        return {
-            formatNumber
-        }
-    },
 
     methods: {
         async searchInfo(data) {

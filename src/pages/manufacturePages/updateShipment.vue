@@ -91,6 +91,7 @@
 <script>
 import { ref } from 'vue';
 import moment from 'moment';
+import router from '@/router';
 import * as bootstrap from 'bootstrap/dist/js/bootstrap';
 
 import defaultLayoutManufactureVue from '../../layouts/defaultLayoutManufacture.vue';
@@ -100,7 +101,7 @@ import modalSuccessComponent from '@/components/manufactureManagement/modalSucce
 import ShipmentService from '@/service/shipment.service.js';
 import ProductSevice from '@/service/product.service.js';
 import StaffManagementService from '@/service/staffManagement.service';
-
+import accountService from '@/service/account.service';
 
 export default {
     data() {
@@ -119,7 +120,21 @@ export default {
 
     setup() {
         let error = ref([]);
-
+        try {
+            if (localStorage.getItem('user') !== '') {
+                accountService.getRole(localStorage.getItem('user')).then((result) => {
+                    if (result !== 1) {
+                        router.push('/')
+                    }
+                });
+            }
+            else {
+                router.push('/')
+            }
+        } catch (err) {
+            router.push('/')
+            console.log(err)
+        }
         return {
             error
         }

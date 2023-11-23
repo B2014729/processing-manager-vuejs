@@ -49,17 +49,37 @@
 </template>
 
 <script>
+import router from '@/router';
 import * as bootstrap from 'bootstrap/dist/js/bootstrap';
 import searchComponent from '@/components/manufactureManagement/searchComponent.vue';
 import modalWarningComponent from '@/components/manufactureManagement/modalWarningComponent.vue';
 import defaultLayoutManufactureVue from '../../layouts/defaultLayoutManufacture.vue';
 import productService from '@/service/product.service';
+import accountService from '@/service/account.service';
 
 export default {
     components: {
         layoutDefault: defaultLayoutManufactureVue,
         searchComponent: searchComponent,
         modalWarningComponent: modalWarningComponent
+    },
+
+    setup() {
+        try {
+            if (localStorage.getItem('user') !== '') {
+                accountService.getRole(localStorage.getItem('user')).then((result) => {
+                    if (result !== 1) {
+                        router.push('/')
+                    }
+                });
+            }
+            else {
+                router.push('/')
+            }
+        } catch (err) {
+            router.push('/')
+            console.log(err)
+        }
     },
 
     data() {

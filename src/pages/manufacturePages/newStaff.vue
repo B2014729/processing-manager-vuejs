@@ -125,6 +125,7 @@
 
 <script>
 import * as bootstrap from 'bootstrap/dist/js/bootstrap';
+import router from '@/router';
 import { ref } from 'vue';
 import defaultLayoutManufactureVue from '../../layouts/defaultLayoutManufacture.vue';
 
@@ -138,8 +139,6 @@ export default {
         return {
         }
     },
-    watch: {
-    },
     components: {
         layoutDefault: defaultLayoutManufactureVue,
         modalSuccessComponent: modalSuccessComponent,
@@ -149,7 +148,21 @@ export default {
     setup() {
         let error = ref([]);
         let data = [];
-
+        try {
+            if (localStorage.getItem('user') !== '') {
+                accountService.getRole(localStorage.getItem('user')).then((result) => {
+                    if (result !== 1) {
+                        router.push('/')
+                    }
+                });
+            }
+            else {
+                router.push('/')
+            }
+        } catch (err) {
+            router.push('/')
+            console.log(err)
+        }
         return {
             data, error
         }

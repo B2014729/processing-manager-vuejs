@@ -73,14 +73,33 @@
 
 <script>
 import moment from 'moment';
+import router from '@/router';
 import defaultLayoutManufactureVue from '../../layouts/defaultLayoutManufacture.vue';
 
 import stafManagementService from '@/service/staffManagement.service';
+import accountService from '@/service/account.service';
 export default {
     components: {
         layoutDefault: defaultLayoutManufactureVue,
     },
 
+    setup() {
+        try {
+            if (localStorage.getItem('user') !== '') {
+                accountService.getRole(localStorage.getItem('user')).then((result) => {
+                    if (result !== 1) {
+                        router.push('/')
+                    }
+                });
+            }
+            else {
+                router.push('/')
+            }
+        } catch (err) {
+            router.push('/')
+            console.log(err)
+        }
+    },
     data() {
         return {
             user: {},
