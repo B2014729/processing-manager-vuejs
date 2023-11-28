@@ -4,7 +4,7 @@
             <div class="d-flex justify-content-center">
                 <div class="d-flex justify-content-center" style="width:500px;">
                     <div>
-                        <h4 class="text-success fw-bold my-4">Thông tin sản xuất: Cá tra fillte </h4>
+                        <h4 class="text-success fw-bold my-4">Thông tin sản xuất: {{ shipment.name }}</h4>
                         <div class="w-100 my-3" style="box-shadow: 0px 0px 12px 6px rgba(158, 131, 131, 0.678);">
                             <div v-if="Process.length === 0">
                                 <p class="text-warning mt-2 ms-2">Chưa có thông tin nào được cập nhật tại đây!</p>
@@ -43,6 +43,7 @@
     </consumer-layout>
 </template>
 <script>
+import shipmentService from '@/service/shipment.service';
 import consumerLayout from '../../layouts/consumerLayout.vue';
 import ProcessService from '@/service/process.service.js';
 export default {
@@ -53,24 +54,8 @@ export default {
         return {
             id: this.$route.params.id,
             Process: [],
+            shipment: {},
             dataIsUpdated: []
-        }
-    },
-
-    async created() {
-        try {
-            await ProcessService.getProcess(this.id).then((result) => {
-                result.shift(); //Remove first block(Contructor block)
-                this.Process = result
-            });
-
-            await ProcessService.checkDataIsChanged(this.id).then((result) => {
-                this.dataIsUpdated = result;
-                console.log(this.dataIsUpdated);
-            });
-
-        } catch (err) {
-            console.log(err);
         }
     },
 
@@ -87,7 +72,30 @@ export default {
         return {
             checkIssetInArray
         }
-    }
+    },
+
+    async created() {
+        try {
+            await ProcessService.getProcess(this.id).then((result) => {
+                result.shift(); //Remove first block(Contructor block)
+                this.Process = result
+            });
+
+            await ProcessService.checkDataIsChanged(this.id).then((result) => {
+                this.dataIsUpdated = result;
+            });
+
+            await shipmentService.getShipment(this.id).then((result) => {
+                console.log(result);
+                this.shipment = result;
+            });
+
+        } catch (err) {
+            console.log(err);
+        }
+    },
+
+
 }
 </script>
 <style scoped></style>

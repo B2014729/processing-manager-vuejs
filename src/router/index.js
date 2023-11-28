@@ -33,7 +33,10 @@ import addActiveProcess from '../pages/manufacturePages/addActiveProcess.vue';
 import homePageConsumer from '../pages/consumer/homePage.vue';
 import processManufacture from '../pages/consumer/processManufacture.vue';
 import productInfo from '../pages/consumer/productInfo.vue';
-
+import contactPage from '../pages/consumer/contactPage.vue';
+import introducePage from '../pages/consumer/introducePage.vue';
+import productPage from '../pages/consumer/productPage.vue';
+import productDetail from '../pages/consumer/productDetail.vue';
 import NotFound from '../pages/error/notFound.vue';
 
 
@@ -211,6 +214,35 @@ const routes = [
         component: productInfo
     },
 
+    {
+        //Danh sach san pham
+        path: '/sanpham',
+        name: 'Ds-SP',
+        component: productPage
+    },
+
+    {
+        //Danh sach san pham
+        path: '/sanpham/:idProduct',
+        name: 'SP-chi-tiet',
+        component: productDetail,
+        props: true
+    },
+
+    {
+        //Thong tin lien lac
+        path: '/lienhe',
+        name: 'lien-he',
+        component: contactPage
+    },
+
+    {
+        //Gioi thieu
+        path: '/giothieu',
+        name: 'gioi-thieu',
+        component: introducePage
+    },
+
     //LOI------------------------------------
     {
         //Khong tim thay url
@@ -223,7 +255,11 @@ const routes = [
 const router = createRouter({
     history: createWebHistory(process.env.BASE_URL),
     routes,
-    linkActiveClass: 'active'
-})
+    linkActiveClass: 'active',
+});
 
+router.beforeEach((to, from, next) => {
+    window.scrollTo(0, 0);
+    next()
+});
 export default router;

@@ -81,7 +81,7 @@
                                     <router-link :to="{ name: 'TT-ca-nhan', params: { id: this.$route.params.id } }">
                                         <button class="btn"><i class="fa-solid fa-arrow-left px-1"></i></button>
                                     </router-link>
-                                    <button class="btn ms-3" type="button" @click="onSubmitUpdate">Cập nhật</button>
+                                    <button class="btn ms-3" type="submit">Cập nhật</button>
                                 </div>
                             </form>
                         </div>
@@ -158,7 +158,7 @@ export default {
 
     async created() {
         this.user = await staffManagementService.getProfile(localStorage.getItem('user'));
-        this.user.birth_date = moment(this.user.date_manufacture).format('YYYY-MM-DD');
+        this.user.birth_date = moment(this.user.birth_date).format('YYYY-MM-DD');
     }
 }
 </script>

@@ -50,7 +50,7 @@
                 <div class="col-md-6 col-sm-6 col-12">
                     <div>
                         <img src="https://www.trungtamthuysantphcm.vn/wp-content/uploads/2018/06/du-an-ha-tang-khu-che-bien-thuy-san-813.jpg"
-                            alt="">
+                            alt="" class="img-fluid">
                     </div>
                 </div>
             </div>

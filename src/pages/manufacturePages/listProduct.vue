@@ -11,7 +11,7 @@
                     <thead>
                         <tr>
                             <th scope="col" class="center">MÃ SP</th>
-                            <th scope="col" class="center w-50">HÌNH ẢNH</th>
+                            <th scope="col" class="center w-25">HÌNH ẢNH</th>
                             <th scope="col" class="center">TÊN SẢN PHẨM</th>
                             <th scope="col" class="center">HẠN SỬ DỤNG</th>
                             <th scope="col" class="center ps-4"></th>
@@ -109,7 +109,11 @@ export default {
             if (data !== '') {
                 try {
                     await productService.getProduct(data).then((result) => {
-                        this.listProduct = [result];
+                        if (!result) {
+                            new bootstrap.Modal(document.getElementById("ModalWarning"), {}).show();
+                        } else {
+                            this.listProduct = [result];
+                        }
                     });
                 } catch (error) {
                     new bootstrap.Modal(document.getElementById("ModalWarning"), {}).show();

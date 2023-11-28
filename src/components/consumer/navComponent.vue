@@ -25,9 +25,12 @@
                                     Danh mục sản phẩm
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">Action</a></li>
-                                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                    <li><a class="dropdown-item" href="#">Sản phẩm nước ngọt</a></li>
+                                    <li><a class="dropdown-item" href="#">Sản phẩm nước mặn</a></li>
+                                    <li><a class="dropdown-item" href="#">Sản phẩm nổi bật</a></li>
+                                    <li><router-link class="nav-link ms-2" :to="{ name: 'Ds-SP' }">
+                                            Tất cả sản phẩm
+                                        </router-link></li>
                                 </ul>
                             </div>
                         </li>
@@ -35,10 +38,11 @@
                             <router-link class="nav-link" :to="{ name: 'Tra-cuu-SP' }">
                                 Tra cứu thông tin
                             </router-link>
-
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Giới thiệu</a>
+                            <router-link class="nav-link" :to="{ name: 'gioi-thieu' }">
+                                Giới thiệu
+                            </router-link>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Tư vấn</a>
@@ -50,7 +54,9 @@
                             <a class="nav-link" href="#">Hoạt động</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Liên hệ</a>
+                            <router-link class="nav-link" :to="{ name: 'lien-he' }">
+                                Liên hệ
+                            </router-link>
                         </li>
                     </ul>
                 </div>

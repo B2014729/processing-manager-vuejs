@@ -24,7 +24,7 @@
                                 <i class="fa-brands fa-product-hunt fs-1 text-success"></i>
                             </template>
                             <template #counts>
-                                <h3 class="text-success">365 590</h3>
+                                <h3 class="text-success">56</h3>
                             </template>
                             <template #title-card>
                                 <span>Sản phẩm</span>
